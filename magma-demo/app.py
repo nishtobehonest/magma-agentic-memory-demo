@@ -8,11 +8,15 @@ Run: streamlit run app.py
 import time
 import sys
 import os
+import io
+import base64
 
 import streamlit as st
 import streamlit.components.v1 as components
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import qrcode
 
 from data.scenario import EVENTS, QUERIES
 from data.themes import LIGHT_APP_CSS
@@ -21,6 +25,20 @@ from components.ingestion_anim import render_ingestion, render_event_bubble, SPE
 from components.comparison import render_full_comparison
 from components.ablation import render_ablation
 from components.about import render_about
+
+_APP_URL = "https://magma-agentic-memory-demo.streamlit.app/"
+
+
+@st.cache_data
+def _qr_b64() -> str:
+    qr = qrcode.QRCode(version=1, box_size=5, border=2)
+    qr.add_data(_APP_URL)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="#6C63FF", back_color="#1A1D2E")
+    buf = io.BytesIO()
+    img.save(buf, format="PNG")
+    return base64.b64encode(buf.getvalue()).decode()
+
 
 # ---------------------------------------------------------------------------
 # Page config
@@ -149,6 +167,18 @@ with st.sidebar:
           Baseline: <b style="color:#FF6B6B">0.48</b><br>
           Token reduction: <b style="color:#00BFA5">95%</b><br>
           Query latency: <b style="color:#FFB347">1.47s</b>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("---")
+    st.markdown(
+        f"""
+        <div style="text-align:center;padding:4px 0 8px 0">
+          <img src="data:image/png;base64,{_qr_b64()}" width="130"
+               style="border-radius:8px;display:block;margin:0 auto"/>
+          <div style="font-size:10px;color:#666;margin-top:6px">Scan to open on mobile</div>
         </div>
         """,
         unsafe_allow_html=True,

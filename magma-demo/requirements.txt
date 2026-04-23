@@ -3,3 +3,4 @@ networkx==3.3
 pyvis==0.3.2
 plotly==5.22.0
 pandas==2.2.2
+qrcode[pil]==7.4.2
