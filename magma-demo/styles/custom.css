@@ -1,0 +1,133 @@
+/* MAGMA Demo — Custom Dark Theme Styles */
+
+/* Hide Streamlit default header/footer for cleaner demo */
+#MainMenu { visibility: hidden; }
+footer { visibility: hidden; }
+header { visibility: hidden; }
+
+/* Sidebar styling */
+section[data-testid="stSidebar"] {
+  background: #12151F;
+  border-right: 1px solid #2D3148;
+}
+
+/* Main content area */
+.main .block-container {
+  padding-top: 1.5rem;
+  max-width: 1200px;
+}
+
+/* Radio buttons */
+div[data-testid="stRadio"] label {
+  color: #CCCCCC;
+  font-size: 13px;
+}
+
+/* Buttons */
+div[data-testid="stButton"] > button {
+  background: linear-gradient(135deg, #6C63FF, #9D97FF);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+div[data-testid="stButton"] > button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(108, 99, 255, 0.4);
+}
+
+/* Secondary buttons */
+div[data-testid="stButton"] > button[kind="secondary"] {
+  background: #252840;
+  color: #AAAAAA;
+  border: 1px solid #444;
+}
+
+/* Act navigation buttons — look like plain text links */
+section[data-testid="stSidebar"] div[data-testid="stButton"] > button {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+  padding: 4px 8px !important;
+  margin: 1px 0 !important;
+  transition: background 0.15s !important;
+}
+
+section[data-testid="stSidebar"] div[data-testid="stButton"] > button:hover {
+  background: rgba(108, 99, 255, 0.12) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Metrics */
+div[data-testid="metric-container"] {
+  background: #252840;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+div[data-testid="metric-container"] label {
+  color: #AAAAAA;
+  font-size: 12px;
+}
+
+div[data-testid="metric-container"] div[data-testid="stMetricValue"] {
+  color: #6C63FF;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Checkboxes */
+div[data-testid="stCheckbox"] label {
+  color: #CCCCCC;
+  font-size: 13px;
+}
+
+/* Success/Error/Warning boxes */
+div[data-testid="stAlert"] {
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+/* Progress bar */
+div[data-testid="stProgressBar"] > div {
+  background: linear-gradient(90deg, #6C63FF, #00BFA5);
+  border-radius: 4px;
+}
+
+/* PyVis iframe container */
+iframe {
+  border-radius: 8px;
+  border: 1px solid #2D3148;
+}
+
+/* H1/H2 headings */
+h1 { color: #FAFAFA !important; font-size: 28px !important; }
+h2 { color: #DDDDDD !important; }
+h3 { color: #CCCCCC !important; }
+
+/* Captions */
+div[data-testid="stCaption"] {
+  color: #888888;
+  font-size: 12px;
+}
+
+/* Horizontal rule */
+hr {
+  border-color: #2D3148;
+  margin: 20px 0;
+}
+
+/* Select/Radio in sidebar */
+div[data-testid="stSidebar"] div[data-testid="stRadio"] label {
+  font-size: 12px;
+  color: #AAAAAA;
+}
