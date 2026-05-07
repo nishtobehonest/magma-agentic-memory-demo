@@ -359,7 +359,8 @@ def render_accuracy_chart(theme: str = "dark"):
         **layout,
     )
     fig.add_hline(y=0.7, line_dash="dot", line_color="#FFD700",
-                  annotation_text="MAGMA: 0.700", annotation_font_color="#FFD700")
+                  annotation_text="MAGMA: 0.700", annotation_font_color="#FFD700",
+                  annotation_position="top left")
     return fig
 
 
