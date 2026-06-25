@@ -16,7 +16,11 @@ import streamlit.components.v1 as components
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-import qrcode
+try:
+    import qrcode
+    _QRCODE_AVAILABLE = True
+except ImportError:
+    _QRCODE_AVAILABLE = False
 
 from data.scenario import EVENTS, QUERIES
 from data.themes import LIGHT_APP_CSS
@@ -31,6 +35,8 @@ _APP_URL = "https://magma-agentic-memory-demo.streamlit.app/"
 
 @st.cache_data
 def _qr_b64() -> str:
+    if not _QRCODE_AVAILABLE:
+        return ""
     qr = qrcode.QRCode(version=1, box_size=5, border=2)
     qr.add_data(_APP_URL)
     qr.make(fit=True)
@@ -173,11 +179,11 @@ with st.sidebar:
     )
 
     st.markdown("---")
+    _qr = _qr_b64()
     st.markdown(
         f"""
         <div style="text-align:center;padding:4px 0 8px 0">
-          <img src="data:image/png;base64,{_qr_b64()}" width="130"
-               style="border-radius:8px;display:block;margin:0 auto"/>
+          {"<img src='data:image/png;base64," + _qr + "' width='130' style='border-radius:8px;display:block;margin:0 auto'/>" if _qr else "<a href='" + _APP_URL + "' style='color:#6C63FF;font-size:12px'>Open on mobile ↗</a>"}
           <div style="font-size:10px;color:#666;margin-top:6px">Scan to open on mobile</div>
         </div>
         """,
