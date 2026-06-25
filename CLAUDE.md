@@ -15,7 +15,7 @@ streamlit run app.py
 # Opens at http://localhost:8501
 ```
 
-**PyVis 0.3.2 is a hard pin** — later versions changed the HTML export API and will break graph rendering. Do not upgrade it.
+**No pyvis dependency** — graph HTML is generated directly via vis.js CDN in `components/graph_viz.py`. Do not re-add pyvis; its mandatory `ipython` dependency causes OOM on Streamlit Cloud free tier.
 
 **`streamlit.components.v1` must be imported explicitly** — `import streamlit.components.v1 as components` at the top of any file that calls `components.html(...)`. Accessing it as `st.components.v1` raises an `AttributeError`.
 
@@ -25,7 +25,7 @@ All demo content lives in `magma-demo/`. The app is a single-page Streamlit wiza
 
 **Data flow:** `data/scenario.py` is the single source of truth — it defines all 32 events, 4 pre-scripted queries with traversal paths, ablation scores (from paper Table 4), and benchmark numbers (Tables 1–4). Nothing is computed at runtime; graph traversal is a pre-scripted replay.
 
-**Graph rendering:** `components/graph_viz.py` builds NetworkX graphs once (singleton `_GRAPHS`) from the edge lists in `scenario.py`, then converts them to PyVis `Network` objects and exports self-contained HTML strings. These are embedded via `components.html(..., height=N, scrolling=False)`. Highlighted nodes/edges for traversal animation are passed as arguments — the function rebuilds the HTML each step.
+**Graph rendering:** `components/graph_viz.py` builds NetworkX graphs once (singleton `_GRAPHS`) from the edge lists in `scenario.py`, then serialises nodes/edges to JSON and injects them into a vis.js HTML template (vis-network 9.1.2 via CDN). These self-contained HTML strings are embedded via `components.html(..., height=N, scrolling=False)`. Highlighted nodes/edges for traversal animation are passed as arguments — the function rebuilds the HTML each step.
 
 **Traversal animation pattern** (used in Act 3 and Act 2):
 ```python
